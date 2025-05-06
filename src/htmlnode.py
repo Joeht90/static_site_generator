@@ -13,7 +13,7 @@ class HTMLNode():
     
 
     def props_to_html(self):
-        return f" {self.tag}={self.value} {self.target}={self.props}"
+        return f' {self.tag}="{self.value}" {self.target}="{self.props}"'
     
 
     def __repr__(self):
