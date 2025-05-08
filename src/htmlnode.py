@@ -2,32 +2,32 @@ class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
         self.value = value
+        # The use of the if else statments below is to set both children and props to a blank list
+        # and a blank dictionary if they are constructed without inputs
+        # This way they always exist as usable objects
         self.children = children if children is not None else []
         self.props = props if props is not None else {}
-
-    def props_to_html(self):
-        """Generate the HTML attributes for the node as a string."""
-        return ' '.join([f'{key}="{value}"' for key, value in self.props.items()])
-
-    def __repr__(self):
-        """Return a string representation of the node."""
-        return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props})"
-
-    def to_html(self):
-        """This method should be overridden by child classes."""
-        raise NotImplementedError("to_html() must be implemented by subclasses.")
-
-class LeafNode(HTMLNode):
-    def __init__(self, tag, value):
-        self.tag = tag
-        self.value = value
-        super().__init__(HTMLNode)
         
+    
     def to_html(self):
-        if self.value == None:
-            raise ValueError("all leaf nodes must have a value")
-        if self.tag == None:
-            return f"{self.value}"
-        else:
-            pass 
+        # This is to be overriden by child classes
+        raise NotImplementedError("Only subclasses should implement this method.")
+    
+    
+    def props_to_html(self):
+        concatenated_string = ""
+        """I originally implemented this
+        for i in self.props:
+            concatenated_string += f' {i}="{self.props[i]}"'
+            """
+        # These two lines should be more readable
+        for key, value in self.props.items():
+            concatenated_string += f' {key}="{value}"'
+        return concatenated_string
+    
+    
+    def __repr__(self):
+        # I originally used this but realized i need to return this not print it
+        # print(f"{self.tag}\n{self.value}\n{self.children}\n{self.props}")
+        return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props}"
         
