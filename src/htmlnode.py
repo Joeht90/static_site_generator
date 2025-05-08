@@ -17,4 +17,17 @@ class HTMLNode:
         """This method should be overridden by child classes."""
         raise NotImplementedError("to_html() must be implemented by subclasses.")
 
-    
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value):
+        self.tag = tag
+        self.value = value
+        super().__init__(HTMLNode)
+        
+    def to_html(self):
+        if self.value == None:
+            raise ValueError("all leaf nodes must have a value")
+        if self.tag == None:
+            return f"{self.value}"
+        else:
+            pass 
+        
